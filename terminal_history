@@ -1,0 +1,262 @@
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl get pods
+No resources found in default namespace.
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app>
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app>
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app>
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app>
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe create -f .\voting-app-pod.yaml
+pod/voting-app-pod created
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe create -f .\voting-service.yaml
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe get all
+NAME                 READY   STATUS    RESTARTS   AGE
+pod/voting-app-pod   1/1     Running   0          23s
+NAME                         TYPE        CLUSTER-IP     EXTERNAL-IP   PORT(S)        AGE
+service/kubernetes           ClusterIP   10.96.0.1      <none>        443/TCP        97m
+service/voting-app-service   NodePort    10.99.125.82   <none>        80:30002/TCP   16s
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> minikube service voting-app-service
+W1204 10:46:30.197797   13372 main.go:291] Unable to resolve the current Docker CLI context "default": context "default": context not found: open 
+C:\Users\Jisjo K John\.docker\contexts\meta\37a8eec1ce19687d132fe29051dca629d164e2c4958ba141d5f4133a33f0688f\meta.json: The system cannot find the path specified.
+|-----------|--------------------|-------------|-----------------------------|
+| NAMESPACE |        NAME        | TARGET PORT |             URL             |
+| default   | voting-app-service |          80 | http://172.26.170.186:30002 |
+🎉  Opening service default/voting-app-service in default browser...
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe create -f .\redis-app-pod.yaml
+pod/redis-pod created
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe create -f .\redis-service.yaml
+service/redis created
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe create -f .\postgres-pod.yaml 
+pod/postgres-pod created
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe create -f .\postgres-p^C     
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe get all
+pod/postgres-pod     1/1     Running   0          9s
+pod/voting-app-pod   1/1     Running   0          115s
+NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP        99m
+service/redis                ClusterIP   10.111.139.227   <none>        6379/TCP       18s
+service/voting-app-service   NodePort    10.99.125.82     <none>        80:30002/TCP   108s
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe create -f .\postgres-service.yaml
+service/db created
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe get all
+NAME                 READY   STATUS    RESTARTS   AGE
+pod/postgres-pod     1/1     Running   0          27s
+pod/redis-pod        1/1     Running   0          41s
+pod/voting-app-pod   1/1     Running   0          2m13s
+NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP        99m
+service/redis                ClusterIP   10.111.139.227   <none>        6379/TCP       36s
+service/voting-app-service   NodePort    10.99.125.82     <none>        80:30002/TCP   2m6s
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe create -f .\redis-app-pod.yaml   
+Error from server (AlreadyExists): error when creating ".\\redis-app-pod.yaml": pods "redis-pod" already exists
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe create -f .\result-app-pod.yaml
+pod/result-app-pod created
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe get all
+NAME                 READY   STATUS    RESTARTS   AGE
+pod/postgres-pod     1/1     Running   0          57s
+pod/redis-pod        1/1     Running   0          71s
+pod/result-app-pod   1/1     Running   0          7s
+pod/voting-app-pod   1/1     Running   0          2m43s
+
+service/db                   ClusterIP   10.111.160.97    <none>        5432/TCP       35s
+service/redis                ClusterIP   10.111.139.227   <none>        6379/TCP       66s
+service/voting-app-service   NodePort    10.99.125.82     <none>        80:30002/TCP   2m36s
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe create -f .\result-service.yaml
+service/result-service created
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe get all
+NAME                 READY   STATUS    RESTARTS   AGE
+pod/postgres-pod     1/1     Running   0          66s
+pod/redis-pod        1/1     Running   0          80s
+pod/result-app-pod   1/1     Running   0          16s
+pod/voting-app-pod   1/1     Running   0          2m52s
+
+NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/db                   ClusterIP   10.111.160.97    <none>        5432/TCP       44s
+service/redis                ClusterIP   10.111.139.227   <none>        6379/TCP       75s
+service/result-service       NodePort    10.105.102.55    <none>        80:30003/TCP   3s
+service/voting-app-service   NodePort    10.99.125.82     <none>        80:30002/TCP   2m45s
+
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe create -f .\worker-pod.yaml    
+pod/worker-app-pod created
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe get all
+NAME                 READY   STATUS    RESTARTS   AGE
+pod/postgres-pod     1/1     Running   0          91s
+pod/redis-pod        1/1     Running   0          105s
+pod/result-app-pod   1/1     Running   0          41s
+pod/voting-app-pod   1/1     Running   0          3m17s
+
+NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/db                   ClusterIP   10.111.160.97    <none>        5432/TCP       69s
+service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP        100m
+service/redis                ClusterIP   10.111.139.227   <none>        6379/TCP       100s
+service/result-service       NodePort    10.105.102.55    <none>        80:30003/TCP   28s
+service/voting-app-service   NodePort    10.99.125.82     <none>        80:30002/TCP   3m10s
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe get all
+NAME                 READY   STATUS             RESTARTS     AGE
+pod/postgres-pod     1/1     Running            0            93s
+pod/redis-pod        1/1     Running            0            107s
+pod/result-app-pod   1/1     Running            0            43s
+pod/voting-app-pod   1/1     Running            0            3m19s
+
+NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/db                   ClusterIP   10.111.160.97    <none>        5432/TCP       71s
+service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP        100m
+service/redis                ClusterIP   10.111.139.227   <none>        6379/TCP       102s
+service/result-service       NodePort    10.105.102.55    <none>        80:30003/TCP   30s
+service/voting-app-service   NodePort    10.99.125.82     <none>        80:30002/TCP   3m12s
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe get all
+NAME                 READY   STATUS             RESTARTS     AGE
+pod/postgres-pod     1/1     Running            0            95s
+pod/redis-pod        1/1     Running            0            109s
+pod/result-app-pod   1/1     Running            0            45s
+pod/voting-app-pod   1/1     Running            0            3m21s
+
+NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/db                   ClusterIP   10.111.160.97    <none>        5432/TCP       73s
+service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP        100m
+service/redis                ClusterIP   10.111.139.227   <none>        6379/TCP       104s
+service/result-service       NodePort    10.105.102.55    <none>        80:30003/TCP   32s
+service/voting-app-service   NodePort    10.99.125.82     <none>        80:30002/TCP   3m14s
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe get all
+NAME                 READY   STATUS             RESTARTS     AGE
+pod/postgres-pod     1/1     Running            0            96s
+pod/redis-pod        1/1     Running            0            110s
+pod/result-app-pod   1/1     Running            0            46s
+pod/voting-app-pod   1/1     Running            0            3m22s
+
+NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/db                   ClusterIP   10.111.160.97    <none>        5432/TCP       74s
+service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP        100m
+service/redis                ClusterIP   10.111.139.227   <none>        6379/TCP       105s
+service/result-service       NodePort    10.105.102.55    <none>        80:30003/TCP   33s
+service/voting-app-service   NodePort    10.99.125.82     <none>        80:30002/TCP   3m15s
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe get all
+NAME                 READY   STATUS             RESTARTS     AGE
+pod/postgres-pod     1/1     Running            0            97s
+pod/redis-pod        1/1     Running            0            111s
+pod/result-app-pod   1/1     Running            0            47s
+pod/voting-app-pod   1/1     Running            0            3m23s
+pod/worker-app-pod   0/1     CrashLoopBackOff   1 (7s ago)   9s
+
+service/db                   ClusterIP   10.111.160.97    <none>        5432/TCP       75s
+service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP        100m
+service/redis                ClusterIP   10.111.139.227   <none>        6379/TCP       106s
+service/result-service       NodePort    10.105.102.55    <none>        80:30003/TCP   34s
+service/voting-app-service   NodePort    10.99.125.82     <none>        80:30002/TCP   3m16s
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe get all
+NAME                 READY   STATUS             RESTARTS     AGE
+pod/postgres-pod     1/1     Running            0            98s
+pod/result-app-pod   1/1     Running            0            48s
+pod/voting-app-pod   1/1     Running            0            3m24s
+pod/worker-app-pod   0/1     CrashLoopBackOff   1 (8s ago)   10s
+
+NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/db                   ClusterIP   10.111.160.97    <none>        5432/TCP       76s
+service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP        100m
+service/redis                ClusterIP   10.111.139.227   <none>        6379/TCP       107s
+service/result-service       NodePort    10.105.102.55    <none>        80:30003/TCP   35s
+
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> minikube.exe service result-service    
+W1204 10:50:10.051131    7736 main.go:291] Unable to resolve the current Docker CLI context "default": context "default": context not found: open 
+C:\Users\Jisjo K John\.docker\contexts\meta\37a8eec1ce19687d132fe29051dca629d164e2c4958ba141d5f4133a33f0688f\meta.json: The system cannot find the path specified.
+| NAMESPACE |      NAME      | TARGET PORT |             URL             |
+|-----------|----------------|-------------|-----------------------------|
+| default   | result-service |          80 | http://172.26.170.186:30003 |
+|-----------|----------------|-------------|-----------------------------|
+🎉  Opening service default/result-service in default browser...
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe edit pod worker-app-pod    
+pod/worker-app-pod edited
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe get all
+NAME                 READY   STATUS             RESTARTS      AGE
+pod/postgres-pod     1/1     Running            0             4m57s
+pod/redis-pod        1/1     Running            0             5m11s
+pod/result-app-pod   1/1     Running            0             4m7s
+pod/voting-app-pod   1/1     Running            0             6m43s
+
+NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/db                   ClusterIP   10.111.160.97    <none>        5432/TCP       4m35s
+service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP        103m
+service/redis                ClusterIP   10.111.139.227   <none>        6379/TCP       5m6s
+service/result-service       NodePort    10.105.102.55    <none>        80:30003/TCP   3m54s
+service/voting-app-service   NodePort    10.99.125.82     <none>        80:30002/TCP   6m36s
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe get all
+NAME                 READY   STATUS             RESTARTS      AGE
+pod/postgres-pod     1/1     Running            0             4m59s
+pod/redis-pod        1/1     Running            0             5m13s
+pod/result-app-pod   1/1     Running            0             4m9s
+pod/voting-app-pod   1/1     Running            0             6m45s
+
+NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/db                   ClusterIP   10.111.160.97    <none>        5432/TCP       4m37s
+service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP        103m
+service/redis                ClusterIP   10.111.139.227   <none>        6379/TCP       5m8s
+service/result-service       NodePort    10.105.102.55    <none>        80:30003/TCP   3m56s
+service/voting-app-service   NodePort    10.99.125.82     <none>        80:30002/TCP   6m38s
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe get all
+NAME                 READY   STATUS             RESTARTS      AGE
+pod/postgres-pod     1/1     Running            0             5m
+pod/redis-pod        1/1     Running            0             5m14s
+pod/result-app-pod   1/1     Running            0             4m10s
+pod/voting-app-pod   1/1     Running            0             6m46s
+
+NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/db                   ClusterIP   10.111.160.97    <none>        5432/TCP       4m38s
+service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP        103m
+service/redis                ClusterIP   10.111.139.227   <none>        6379/TCP       5m9s
+service/result-service       NodePort    10.105.102.55    <none>        80:30003/TCP   3m57s
+service/voting-app-service   NodePort    10.99.125.82     <none>        80:30002/TCP   6m39s
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe get all
+NAME                 READY   STATUS             RESTARTS      AGE
+pod/postgres-pod     1/1     Running            0             5m
+pod/redis-pod        1/1     Running            0             5m14s
+pod/result-app-pod   1/1     Running            0             4m10s
+pod/voting-app-pod   1/1     Running            0             6m46s
+
+service/db                   ClusterIP   10.111.160.97    <none>        5432/TCP       4m38s
+service/redis                ClusterIP   10.111.139.227   <none>        6379/TCP       5m9s
+service/result-service       NodePort    10.105.102.55    <none>        80:30003/TCP   3m57s
+service/voting-app-service   NodePort    10.99.125.82     <none>        80:30002/TCP   6m39s
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe get all
+NAME                 READY   STATUS             RESTARTS      AGE
+pod/postgres-pod     1/1     Running            0             5m1s
+pod/redis-pod        1/1     Running            0             5m15s
+pod/result-app-pod   1/1     Running            0             4m11s
+pod/voting-app-pod   1/1     Running            0             6m47s
+pod/worker-app-pod   0/1     CrashLoopBackOff   5 (36s ago)   3m33s
+
+NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/db                   ClusterIP   10.111.160.97    <none>        5432/TCP       4m39s
+service/redis                ClusterIP   10.111.139.227   <none>        6379/TCP       5m10s
+service/result-service       NodePort    10.105.102.55    <none>        80:30003/TCP   3m58s
+service/voting-app-service   NodePort    10.99.125.82     <none>        80:30002/TCP   6m40s
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe delete pod worker-app-pod
+pod "worker-app-pod" deleted
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe create -f .\worker-pod.yaml
+pod/worker-app-pod created
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe get all
+NAME                 READY   STATUS    RESTARTS   AGE
+pod/postgres-pod     1/1     Running   0          6m28s
+pod/redis-pod        1/1     Running   0          6m42s
+pod/result-app-pod   1/1     Running   0          5m38s
+pod/voting-app-pod   1/1     Running   0          8m14s
+pod/worker-app-pod   1/1     Running   0          2s
+
+NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/db                   ClusterIP   10.111.160.97    <none>        5432/TCP       6m6s
+service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP        105m
+service/redis                ClusterIP   10.111.139.227   <none>        6379/TCP       6m37s
+service/result-service       NodePort    10.105.102.55    <none>        80:30003/TCP   5m25s
+service/voting-app-service   NodePort    10.99.125.82     <none>        80:30002/TCP   8m7s
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> kubectl.exe get all
+NAME                 READY   STATUS    RESTARTS   AGE
+pod/postgres-pod     1/1     Running   0          6m30s
+pod/redis-pod        1/1     Running   0          6m44s
+pod/result-app-pod   1/1     Running   0          5m40s
+pod/voting-app-pod   1/1     Running   0          8m16s
+pod/worker-app-pod   1/1     Running   0          4s
+
+NAME                         TYPE        CLUSTER-IP       EXTERNAL-IP   PORT(S)        AGE
+service/db                   ClusterIP   10.111.160.97    <none>        5432/TCP       6m8s
+service/kubernetes           ClusterIP   10.96.0.1        <none>        443/TCP        105m
+service/redis                ClusterIP   10.111.139.227   <none>        6379/TCP       6m39s
+service/result-service       NodePort    10.105.102.55    <none>        80:30003/TCP   5m27s
+service/voting-app-service   NodePort    10.99.125.82     <none>        80:30002/TCP   8m9s
+PS C:\Users\Jisjo K John\Documents\kubectl\pro1\voting app> 
